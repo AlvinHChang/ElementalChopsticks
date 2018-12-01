@@ -2,10 +2,10 @@ class Power:
     def __init__(self):
         self.name = ""
     
-    def __begin_phase__(self):
+    def turn_end(self):
         pass
 
-    def __begin_phase__(self):
+    def turn_begin(self):
         pass
     
     def get_name(self):
@@ -19,6 +19,6 @@ class Lightning(Power):
     def __init__(self):
         self.name = "Normal"        
 
-    def __begin_phase__(self):
+    def turn_begin(self):
         player_input = input()
 
