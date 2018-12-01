@@ -1,22 +1,11 @@
-class Power:
-    def __init__(self):
-        self.name = ""
-    
-    def __begin_phase__(self):
-        pass
-    
-    def get_name(self):
-        return self.name
-
-
-class Normal(Power):
-    def __init__(self):
-        self.name = "Normal"        
-
 class Chopstick:
+    """
+    The Chopstick object class, this will keep track of the players and its corresponding power
+    and life
+    """
     def __init__(self, life=4, power=Normal, name="default"):
         self.left_hand = life
-        self.left_hand = life
+        self.right_hand = life
         self.name = name
         self.power = power()
 
@@ -56,26 +45,41 @@ class Game_API:
     def __init__(self):
         self.game = Game()
         self.current_phase = self.turn_begin
+        self.current_player = self.game.get_current_player()
+        self.begin_turn = True
+
+    def game_turn_loop(self):
+        if not self.begin_turn:
+            print("not beginning of turn")
+        self.begin_turn = False
+        while not self.begin_turn:
+            self.game.turn_continue()
 
     def game_loop(self):
         game = self.game
-        game.turn_begin()
-        game.get_current_player()
-        player_input = input()
-        game.switch_turn()
+        game_end_flag = False
+        while not game_end_flag:
+            self.game_turn_loop()
 
     def turn_continue(self):
         self.current_phase()
     
     def turn_begin(self):
         print("turn begin")
+        game.current_player.__turn_begin__()
+
         self.current_phase = self.turn_standby
 
     def turn_standby(self):
         print("turn standby")
+        player_input = input()
+        self.current_phase = self.turn_begin
+
+    def turn_end(self):
+        print("end turn")
+        player_input = input()
+        # flag for game turn loop to switch turn
+        self.begin_turn = True
         self.current_phase = self.turn_begin
 
 
-                
-        
-    
